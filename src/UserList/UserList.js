@@ -10,7 +10,6 @@ class UserList extends React.Component {
         users: null,
         isLoadingUsers: false,
         newUserName: '',
-        newUserLastName: '',
     }
 
     loadUsers = () => {
@@ -46,10 +45,24 @@ class UserList extends React.Component {
             .then(response => {
                 this.loadUsers()
                 this.setState({
-                    newUserName:''
+                    newUserName: ''
                 })
             })
-        
+
+    }
+    onEditUserHandler = (key, newName) => {
+        const request = {
+            method: 'PATCH',
+            body: JSON.stringify({
+                name: newName
+            })
+        }
+
+        fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
+            , request)
+            .then(response => {
+                this.loadUsers()
+            })
     }
 
 
@@ -69,8 +82,7 @@ class UserList extends React.Component {
                                 />
 
                                 <List
-                                    newUserName={this.state.newUserName}
-                                    newUserChangeHandler={this.newUserChangeHandler}
+                                    onEditUserHandler={this.onEditUserHandler}
 
                                     users={this.state.users}
 

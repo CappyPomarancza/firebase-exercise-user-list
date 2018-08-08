@@ -9,9 +9,8 @@ const List = (props) => (
             <User
             key={user.key}
             user={user}
-            >
-                
-            </User>
+            onEditUserHandler={props.onEditUserHandler}
+            />
         ))
         }
     </div>
