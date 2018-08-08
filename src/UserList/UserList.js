@@ -9,6 +9,8 @@ class UserList extends React.Component {
     state = {
         users: null,
         isLoadingUsers: false,
+        newUserName: '',
+        newUserLastName: '',
     }
 
     loadUsers = () => {
@@ -24,7 +26,31 @@ class UserList extends React.Component {
                 })
             })
     }
+    newUserChangeHandler = (event) => {
+        this.setState({
+            newUserName: event.target.value,
+        })
 
+    }
+    onAddNewUserClick = () => {
+
+        const request = {
+            method: 'POST',
+            body: JSON.stringify({
+                name: this.state.newUserName,
+            })
+        }
+
+        fetch('https://todo-e8a15.firebaseio.com/cappy-users/.json'
+            , request)
+            .then(response => {
+                this.loadUsers()
+                this.setState({
+                    newUserName:''
+                })
+            })
+        
+    }
 
 
     render() {
@@ -35,14 +61,20 @@ class UserList extends React.Component {
                         <Loading />
                         :
                         this.state.users ?
-                        <div>
-                            <Forms />
-                        
-                            <List
+                            <div>
+                                <Forms
+                                    newUserName={this.state.newUserName}
+                                    newUserChangeHandler={this.newUserChangeHandler}
+                                    onAddNewUserClick={this.onAddNewUserClick}
+                                />
 
-                            users={this.state.users}
-                            
-                            />
+                                <List
+                                    newUserName={this.state.newUserName}
+                                    newUserChangeHandler={this.newUserChangeHandler}
+
+                                    users={this.state.users}
+
+                                />
                             </div>
                             :
                             <Default

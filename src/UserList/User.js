@@ -1,13 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const User = (props)=> (
- <div>
-    {props.user.name}
- </div>
-)
+class User extends React.Component {
 
-User.propTypes ={
- user : PropTypes.object.isRequired
+
+    render() {
+        return (
+            <div>
+                {this.props.user.name}
+                < button > EDIT</button>
+            </div>
+        )
+    }
 }
+
+User.propTypes = {
+        user: PropTypes.object.isRequired
+    }
 export default User

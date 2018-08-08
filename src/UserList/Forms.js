@@ -5,10 +5,13 @@ const Froms = (props) =>(
     <div>
         <input 
         type="text"
+        placeholder={'Name'}
         value={props.newUserName}
         onChange={props.newUserChangeHandler}
         />
-        <button>
+        <button
+        onClick={props.onAddNewUserClick}
+        >
             Add User!
         </button>
     </div>
