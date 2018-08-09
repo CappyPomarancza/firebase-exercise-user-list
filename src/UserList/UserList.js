@@ -56,7 +56,7 @@ class UserList extends React.Component {
 
     }
     onEditUserHandler = (key, newName) => {
-        return database.ref(`/cappy-users/${key}`)
+        database.ref(`/cappy-users/${key}`)
         .update({
             name: newName
         })
