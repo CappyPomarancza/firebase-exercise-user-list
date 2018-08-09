@@ -63,7 +63,7 @@ class UserList extends React.Component {
             })
         }
 
-        fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
+       return fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
             , request)
             .then(response => {
             })

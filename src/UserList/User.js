@@ -34,10 +34,19 @@ class User extends React.Component {
                         onChange={this.onUserNameChangeHandler}
                         value={this.state.userName}
                     />
-                    < button
-                        onClick={() => this.props.onEditUserHandler(this.props.user.key, this.state.userName)}
+                    <button
+                        onClick={
+                            () => {
+                                this.props.onEditUserHandler(
+                                    this.props.user.key,
+                                    this.state.userName
+                                )
+                                .then(()=> this.editToggle())
+                                
+                            }
+                        }
                     >
-                     SAVE
+                        SAVE
                      </button>
                 </div>
                 :
@@ -45,8 +54,8 @@ class User extends React.Component {
                     {this.props.user.name}
                     < button
                         onClick={this.editToggle}
-                    > 
-                    EDIT
+                    >
+                        EDIT
                     </button>
                 </div>
         )
