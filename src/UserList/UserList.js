@@ -5,6 +5,8 @@ import List from './List'
 import mapObjectToArray from '../utils'
 import Forms from './Forms'
 
+import { database } from '../firebaseConfig'
+
 class UserList extends React.Component {
     state = {
         users: null,
@@ -12,18 +14,22 @@ class UserList extends React.Component {
         newUserName: '',
     }
 
-    loadUsers = () => {
+    initUsersSync = () => {
         this.setState({
             isLoadingUsers: true
         })
-        fetch('https://todo-e8a15.firebaseio.com/cappy-users/.json')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    users: mapObjectToArray(data),
-                    isLoadingUsers: false,
-                })
-            })
+        // fetch('https://todo-e8a15.firebaseio.com/cappy-users/.json')
+        database.ref('/cappy-users')
+            .on(
+                'value',
+                snapshot => {
+                    const data = snapshot.val()
+                    this.setState({
+                        users: mapObjectToArray(data),
+                        isLoadingUsers: false,
+                    })
+                }
+            )
     }
     newUserChangeHandler = (event) => {
         this.setState({
@@ -43,7 +49,6 @@ class UserList extends React.Component {
         fetch('https://todo-e8a15.firebaseio.com/cappy-users/.json'
             , request)
             .then(response => {
-                this.loadUsers()
                 this.setState({
                     newUserName: ''
                 })
@@ -61,7 +66,6 @@ class UserList extends React.Component {
         fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
             , request)
             .then(response => {
-                this.loadUsers()
             })
     }
 
@@ -90,7 +94,7 @@ class UserList extends React.Component {
                             </div>
                             :
                             <Default
-                                clickHandler={this.loadUsers}
+                                clickHandler={this.initUsersSync}
                                 label={'Click!'}
                             />
                 }
