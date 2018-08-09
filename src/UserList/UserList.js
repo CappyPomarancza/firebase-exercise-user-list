@@ -86,6 +86,9 @@ class UserList extends React.Component {
     }
 
     render() {
+        const filteredUsers = this.state.users && this.state.users
+            .filter(user => user.name.indexOf(this.state.searchPharse) !== -1)
+
         return (
             <div>
                 {
@@ -102,12 +105,11 @@ class UserList extends React.Component {
                                 <Shearch
                                     searchPharse={this.state.searchPharse}
                                     onShearchPharseChanged={this.onShearchPharseChanged}
-
                                 />
                                 <List
                                     onEditUserHandler={this.onEditUserHandler}
 
-                                    users={this.state.users}
+                                    users={filteredUsers}
 
                                 />
                             </div>
