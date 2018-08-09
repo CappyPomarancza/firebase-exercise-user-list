@@ -4,6 +4,7 @@ import Loading from './Loading'
 import List from './List'
 import mapObjectToArray from '../utils'
 import Forms from './Forms'
+import Shearch from './Shearch'
 
 import { database } from '../firebaseConfig'
 
@@ -12,6 +13,7 @@ class UserList extends React.Component {
         users: null,
         isLoadingUsers: false,
         newUserName: '',
+        searchPharse: '',
     }
 
     initUsersSync = () => {
@@ -57,27 +59,31 @@ class UserList extends React.Component {
     }
     onEditUserHandler = (key, newName) => {
         database.ref(`/cappy-users/${key}`)
-        .update({
-            name: newName
-        })
-        
-        
-        
-        
-        
-    //     const request = {
-    //         method: 'PATCH',
-    //         body: JSON.stringify({
-    //             name: newName
-    //         })
-    //     }
+            .update({
+                name: newName
+            })
 
-    //     return fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
-    //         , request)
-    //         .then(response => {
-    //         })
+
+
+
+
+        //     const request = {
+        //         method: 'PATCH',
+        //         body: JSON.stringify({
+        //             name: newName
+        //         })
+        //     }
+
+        //     return fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
+        //         , request)
+        //         .then(response => {
+        //         })
     }
-
+    onShearchPharseChanged = (event) => {
+        this.setState({
+            searchPharse: event.target.value
+        })
+    }
 
     render() {
         return (
@@ -93,7 +99,11 @@ class UserList extends React.Component {
                                     newUserChangeHandler={this.newUserChangeHandler}
                                     onAddNewUserClick={this.onAddNewUserClick}
                                 />
+                                <Shearch
+                                    searchPharse={this.state.searchPharse}
+                                    onShearchPharseChanged={this.onShearchPharseChanged}
 
+                                />
                                 <List
                                     onEditUserHandler={this.onEditUserHandler}
 
