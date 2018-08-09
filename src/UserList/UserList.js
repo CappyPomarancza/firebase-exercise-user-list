@@ -56,17 +56,26 @@ class UserList extends React.Component {
 
     }
     onEditUserHandler = (key, newName) => {
-        const request = {
-            method: 'PATCH',
-            body: JSON.stringify({
-                name: newName
-            })
-        }
+        return database.ref(`/cappy-users/${key}`)
+        .update({
+            name: newName
+        })
+        
+        
+        
+        
+        
+    //     const request = {
+    //         method: 'PATCH',
+    //         body: JSON.stringify({
+    //             name: newName
+    //         })
+    //     }
 
-       return fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
-            , request)
-            .then(response => {
-            })
+    //     return fetch(`https://todo-e8a15.firebaseio.com/cappy-users/${key}.json`
+    //         , request)
+    //         .then(response => {
+    //         })
     }
 
 
